@@ -9,7 +9,8 @@ dotenv.config()
 const objUser = {
     name: "Admin",
     password: "senha123",
-    email: "admin@mail.com"
+    email: "admin@mail.com",
+    telefone: "1140028922"
 }
 
 describe("Testing response getUser", () => {
@@ -65,7 +66,8 @@ describe("Testing response getUser", () => {
         function comparation(obj1, obj2){
             return obj1.name == obj2.name &&
                    obj1.email == obj2.email &&
-                   obj1.password == obj2.password
+                   obj1.password == obj2.password &&
+                   obj1.telefone == obj2.telefone
         }
         
         expect(comparation(body, objUser)).toBe(true)

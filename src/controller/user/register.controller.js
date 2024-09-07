@@ -4,7 +4,7 @@ async function register(req, res) {
     try{
         const newUser = req.body;
 
-        if(!newUser.name || !newUser.password || !newUser.email ){
+        if(!newUser.name || !newUser.password || !newUser.email || !newUser.telefone ){
             res.status(400).json({message: "Preencha todos os campos!"});
         } else{
             
@@ -28,7 +28,7 @@ async function register(req, res) {
     }catch(error){
         res.status(500).json({
             message: "Erro ao cadastrar usuario",
-            error: error
+            error: error.message
         })
     }
 }

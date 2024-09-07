@@ -29,6 +29,7 @@ describe("Testing response deleteUser", () => {
                             "name": "delete",
                             "password": "delete123",
                             "email": "delete@email.com",
+                            "telefone": "1140028922"
                         })
                 } else{
                     // se a aplicação ja tiver rodando, ele apenas vai criar o usuario
@@ -38,6 +39,7 @@ describe("Testing response deleteUser", () => {
                             "name": "delete",
                             "password": "delete123",
                             "email": "delete@email.com",
+                            "telefone": "1140028922"
                         })
                 }
                 

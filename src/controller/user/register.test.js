@@ -42,7 +42,8 @@ describe("Testing return register", () => {
             .send({
                 "name": "",
                 "password": "senha123",
-                "email": "register@mail.com"
+                "email": "register@mail.com",
+                "telefone": "1140028922"
             })
         expect(response.status).toBe(400)
         expect(response.body).toStrictEqual({"message": "Preencha todos os campos!"})
@@ -54,7 +55,8 @@ describe("Testing return register", () => {
             .send({
                 "name": "register",
                 "password": "senha123",
-                "email": "register@mail.com"
+                "email": "register@mail.com",
+                "telefone": "1140028922"
             })
         expect(response.status).toBe(201)
     })
@@ -65,7 +67,8 @@ describe("Testing return register", () => {
             .send({
                 "name": "register",
                 "password": "senha123",
-                "email": "register@mail.com"
+                "email": "register@mail.com",
+                "telefone": "1140028922"
             })
         expect(response.status).toBe(409)
         expect(response.body).toStrictEqual({"message": "Email já cadastrado!"})

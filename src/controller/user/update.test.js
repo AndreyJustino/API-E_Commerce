@@ -24,6 +24,7 @@ describe("Testing return update", () => {
                         "name": "Admin",
                         "password": "senha123",
                         "email": "admin@mail.com",
+                        "telefone": "1140028922"
                     })
             } else{
                 await request(`http://localhost:${process.env.PORT_API}`)
@@ -32,6 +33,7 @@ describe("Testing return update", () => {
                         "name": "Admin",
                         "password": "senha123",
                         "email": "admin@mail.com",
+                        "telefone": "1140028922"
                     })
             }
         })
@@ -58,7 +60,8 @@ describe("Testing return update", () => {
             .send({
                 "name": "User",
                 "password": "",
-                "email": "user@mail.com"
+                "email": "user@mail.com",
+                "telefone": "1140028922"
             })
         expect(response.status).toBe(400)
         expect(response.body).toStrictEqual({"message": "Preencha todos os campos."})
@@ -71,6 +74,7 @@ describe("Testing return update", () => {
                 "name": "User",
                 "password": "123456",
                 "email": "user@mail.com",
+                "telefone": "1140028922"
             })
         expect(response.status).toBe(404)
         expect(response.body).toStrictEqual({"message": "Usuario não encontrado."})
@@ -83,6 +87,7 @@ describe("Testing return update", () => {
                 "name": "Admin1",
                 "password": "senha123",
                 "email": "admin@mail.com",
+                "telefone": "1140028922"
             })
         expect(response.status).toBe(200)
     })

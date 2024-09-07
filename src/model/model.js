@@ -21,6 +21,10 @@ export const usuario = sequelize.define("Usuario", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  telefone:{
+    type: DataTypes.STRING,
+    allowNull: false,
+  }
 });
 
 export const produto = sequelize.define(
