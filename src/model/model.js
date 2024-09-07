@@ -1,8 +1,8 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../database/config.js';
+import { DataTypes } from "sequelize";
+import sequelize from "../database/config.js";
 
 // criando tabelas
-export const usuario = sequelize.define('Usuario', {
+export const usuario = sequelize.define("Usuario", {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -22,3 +22,37 @@ export const usuario = sequelize.define('Usuario', {
     allowNull: false,
   },
 });
+
+export const produto = sequelize.define(
+  "Produto",
+  {
+    code: {
+      type: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    nome: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    preco: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    quantidade: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    imgNome: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
