@@ -1,3 +1,4 @@
+import creatId from "../../middleware/createId.js";
 import { usuario } from "../../model/model.js";
 import bcrypt from "bcrypt"
 
@@ -16,6 +17,7 @@ async function register(req, res) {
                     email: newUser.email
                 },
                 defaults: {
+                    id: creatId(),
                     name: newUser.name,
                     password: hash,
                     email: newUser.email,

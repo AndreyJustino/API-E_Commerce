@@ -4,10 +4,9 @@ import sequelize from "../database/config.js";
 // criando tabelas
 export const usuario = sequelize.define("Usuario", {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
+    primaryKey: true
   },
   name: {
     type: DataTypes.STRING,

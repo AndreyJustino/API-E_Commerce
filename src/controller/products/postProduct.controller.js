@@ -1,5 +1,5 @@
 import { produto, usuario } from "../../model/model.js";
-import creatCod from "../../middleware/codProduct.js";
+import creatId from "../../middleware/createId.js";
 import {trataNome} from "../../middleware/trataNome.js";
 
 async function postProduct(req, res) {
@@ -19,7 +19,7 @@ async function postProduct(req, res) {
         }else{
 
             const newProduct = {
-                code: creatCod(),
+                code: creatId(),
                 email: product.email,
                 nome: trataNome(product.nome),
                 preco: product.preco,
