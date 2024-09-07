@@ -1,4 +1,5 @@
 import { usuario } from "../../model/model.js";
+import bcrypt from "bcrypt"
 
 async function deleteUser(req,res) {
     try{
@@ -24,7 +25,10 @@ async function deleteUser(req,res) {
             } else{
                 //verificando se senha fornecida é a mesma que esta no banco
                 // se for igual, ai sim podera ser feito o delete
-                if(userDB.password === user.password){
+
+                const validarPassword = await bcrypt.compare(user.password, userDB.password)
+
+                if(validarPassword){
                     const userDelete = await usuario.destroy({
                         where: {
                             email: user.email

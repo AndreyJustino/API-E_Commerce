@@ -1,4 +1,5 @@
 import { usuario } from "../../model/model.js";
+import bcrypt from "bcrypt"
 
 async function register(req, res) {
     try{
@@ -8,11 +9,18 @@ async function register(req, res) {
             res.status(400).json({message: "Preencha todos os campos!"});
         } else{
             
+            const hash = await bcrypt.hash(newUser.password, 10)
+
             const [user, created] = await usuario.findOrCreate({
                 where: {
                     email: newUser.email
                 },
-                defaults: newUser
+                defaults: {
+                    name: newUser.name,
+                    password: hash,
+                    email: newUser.email,
+                    telefone: newUser.telefone
+                }
             })
     
             if(!created){
