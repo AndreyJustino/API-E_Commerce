@@ -7,6 +7,7 @@ import testConnection from '../../middleware/testConnection.js';
 dotenv.config()
 
 describe("Testing response deleteUser", () => {
+    let token;
     let server;
     let response;
     beforeAll(async () => {
@@ -31,6 +32,15 @@ describe("Testing response deleteUser", () => {
                             "email": "delete@email.com",
                             "telefone": "1140028922"
                         })
+
+                        const response = await request(`http://localhost:${process.env.PORT_API}`)
+                            .post("/loginUser").send({
+                                password: "delete123",
+                                email: "delete@email.com",
+                            })
+                        token = response.body.token
+
+
                 } else{
                     // se a aplicação ja tiver rodando, ele apenas vai criar o usuario
                     await request(`http://localhost:${process.env.PORT_API}`)
@@ -41,6 +51,13 @@ describe("Testing response deleteUser", () => {
                             "email": "delete@email.com",
                             "telefone": "1140028922"
                         })
+                    
+                    const response = await request(`http://localhost:${process.env.PORT_API}`)
+                        .post("/loginUser").send({
+                            password: "delete123",
+                            email: "delete@email.com",
+                        })
+                    token = response.body.token
                 }
                 
             }catch(error){
@@ -58,6 +75,7 @@ describe("Testing response deleteUser", () => {
                 "email": "delete@email.com",
                 "password": "delete123"
             })
+            .set("Authorization", `Bearer ${token}`)
         
         // fechando conexão se a aplicação tiver sido ligada por codigo
         if(!response || response.statusCode != 200){
@@ -73,6 +91,7 @@ describe("Testing response deleteUser", () => {
                 "email": "",
                 "password": "senha123"
             })
+            .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(400)
         expect(response.body).toStrictEqual({"message": "Preencha todos os campos."})
     })
@@ -84,6 +103,7 @@ describe("Testing response deleteUser", () => {
                 "email": "email@email.com",
                 "password": "senha123"
             })
+            .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(404)
         expect(response.body).toStrictEqual({"message": "Usuário não encontrado."})
     })
@@ -97,6 +117,7 @@ describe("Testing response deleteUser", () => {
                 "email": "delete@email.com",
                 "password": "delete1234"
             })
+            .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(401)
         expect(response.body).toStrictEqual({"message": "Senha incorreta."})
     })
@@ -108,6 +129,7 @@ describe("Testing response deleteUser", () => {
                 "email": "delete@email.com",
                 "password": "delete123"
             })
+            .set("Authorization", `Bearer ${token}`)
             expect(response.status).toBe(200)
             expect(response.body).toStrictEqual({"message": "Usuário deletado com sucesso."})
     })

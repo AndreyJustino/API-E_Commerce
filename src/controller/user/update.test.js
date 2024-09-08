@@ -7,6 +7,7 @@ import testConnection from '../../middleware/testConnection.js';
 dotenv.config()
 
 describe("Testing return update", () => {
+    let token;
     let server;
     let response;
     beforeAll(async () => {
@@ -26,6 +27,13 @@ describe("Testing return update", () => {
                         "email": "admin@mail.com",
                         "telefone": "1140028922"
                     })
+                ;
+                const response = await request(`http://localhost:${process.env.PORT_API}`)
+                .post("/loginUser").send({
+                    password: "senha123",
+                    email: "admin@mail.com"
+                })
+                token = response.body.token
             } else{
                 await request(`http://localhost:${process.env.PORT_API}`)
                     .post("/register")
@@ -35,6 +43,13 @@ describe("Testing return update", () => {
                         "email": "admin@mail.com",
                         "telefone": "1140028922"
                     })
+                ;
+                const response = await request(`http://localhost:${process.env.PORT_API}`)
+                .post("/loginUser").send({
+                    password: "senha123",
+                    email: "admin@mail.com"
+                })
+                token = response.body.token
             }
         })
 
@@ -47,6 +62,7 @@ describe("Testing return update", () => {
                 "email": "admin@mail.com",
                 "password": "senha123"
             })
+            .set("Authorization", `Bearer ${token}`)
 
         if(!response || response.status != 200){
             await sequelize.close()
@@ -63,6 +79,7 @@ describe("Testing return update", () => {
                 "email": "user@mail.com",
                 "telefone": "1140028922"
             })
+            .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(400)
         expect(response.body).toStrictEqual({"message": "Preencha todos os campos."})
     })
@@ -76,6 +93,7 @@ describe("Testing return update", () => {
                 "email": "user@mail.com",
                 "telefone": "1140028922"
             })
+            .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(404)
         expect(response.body).toStrictEqual({"message": "Usuario não encontrado."})
     })
@@ -89,6 +107,7 @@ describe("Testing return update", () => {
                 "email": "admin@mail.com",
                 "telefone": "1140028922"
             })
+            .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(200)
     })
 })
