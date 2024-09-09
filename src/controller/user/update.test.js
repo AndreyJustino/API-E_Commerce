@@ -101,6 +101,22 @@ describe("Testing return update", () => {
         expect(response.body).toStrictEqual({"message": "Usuario não encontrado."})
     })
 
+    test("Shoudl return status 401 and message if password incorrect", async () => {
+        const response = await request(`http://localhost:${process.env.PORT_API}`)
+        .put("/updateUser")
+        .send({
+            "name": "Admin",
+            "password": "senha1234",
+            "newPassword":"senha12",
+            "email": "admin@mail.com",
+            "telefone": "1140028922"
+        })
+        .set("Authorization", `Bearer ${token}`)
+
+        expect(response.status).toBe(401)
+        expect(response.body).toStrictEqual({"message": "Senha incorreta."})
+    })
+
     test("Should return status 200 if sucess", async () => {
         const response = await request(`http://localhost:${process.env.PORT_API}`)
             .put("/updateUser")
@@ -113,5 +129,7 @@ describe("Testing return update", () => {
             })
             .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty("message")
+        expect(response.body).toHaveProperty("user")
     })
 })
