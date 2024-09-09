@@ -24,7 +24,7 @@ async function getUser(req,res) {
     } catch(error){
         res.status(500).json({
             message: "Erro ao obter o usuario.",
-            erro: error
+            erro: error.message
         })
     }
 }

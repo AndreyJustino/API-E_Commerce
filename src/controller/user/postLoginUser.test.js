@@ -14,6 +14,7 @@ const objUser = {
 }
 
 describe("Testing return postLoginUser.test", () => {
+    let token;
     let server;
     let response;
 
@@ -41,11 +42,12 @@ describe("Testing return postLoginUser.test", () => {
     afterAll(async () => {
         // após o fim dos teste ele vai deletar o usuario criado no inicio
         await request(`http://localhost:${process.env.PORT_API}`)
-            .delete("/deleteUser")
+        .delete("/deleteUser")
             .send({
                 "email": "admin@mail.com",
                 "password": "senha123"
             })
+            .set("Authorization", `Bearer ${token}`)
         
         // fechando conexão se a aplicação tiver sido ligada por codigo
         if(!response || response.statusCode != 200){
@@ -79,6 +81,7 @@ describe("Testing return postLoginUser.test", () => {
                 password: "senha123",
                 email: "admin@mail.com",
             })
+        token = response.body.token
         expect(response.status).toBe(200)
         expect(response.body).toHaveProperty("message")
         expect(response.body).toHaveProperty("token")

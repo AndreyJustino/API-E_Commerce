@@ -28,12 +28,13 @@ describe("Testing return update", () => {
                         "telefone": "1140028922"
                     })
                 ;
-                const response = await request(`http://localhost:${process.env.PORT_API}`)
+                const responseLogin = await request(`http://localhost:${process.env.PORT_API}`)
                 .post("/loginUser").send({
                     password: "senha123",
                     email: "admin@mail.com"
                 })
-                token = response.body.token
+                token = responseLogin.body.token
+                
             } else{
                 await request(`http://localhost:${process.env.PORT_API}`)
                     .post("/register")
@@ -44,12 +45,12 @@ describe("Testing return update", () => {
                         "telefone": "1140028922"
                     })
                 ;
-                const response = await request(`http://localhost:${process.env.PORT_API}`)
+                const responseLogin = await request(`http://localhost:${process.env.PORT_API}`)
                 .post("/loginUser").send({
                     password: "senha123",
                     email: "admin@mail.com"
                 })
-                token = response.body.token
+                token = responseLogin.body.token
             }
         })
 
@@ -60,7 +61,7 @@ describe("Testing return update", () => {
             .delete("/deleteUser")
             .send({
                 "email": "admin@mail.com",
-                "password": "senha123"
+                "password": "senha12"
             })
             .set("Authorization", `Bearer ${token}`)
 
@@ -76,6 +77,7 @@ describe("Testing return update", () => {
             .send({
                 "name": "User",
                 "password": "",
+                "newPassword":"",
                 "email": "user@mail.com",
                 "telefone": "1140028922"
             })
@@ -90,6 +92,7 @@ describe("Testing return update", () => {
             .send({
                 "name": "User",
                 "password": "123456",
+                "newPassword":"1234",
                 "email": "user@mail.com",
                 "telefone": "1140028922"
             })
@@ -102,8 +105,9 @@ describe("Testing return update", () => {
         const response = await request(`http://localhost:${process.env.PORT_API}`)
             .put("/updateUser")
             .send({
-                "name": "Admin1",
+                "name": "Admin",
                 "password": "senha123",
+                "newPassword":"senha12",
                 "email": "admin@mail.com",
                 "telefone": "1140028922"
             })

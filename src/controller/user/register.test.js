@@ -7,6 +7,7 @@ import testConnection from '../../middleware/testConnection.js';
 dotenv.config()
 
 describe("Testing return register", () => {
+    let token;
     let server;
     let response;
     beforeAll(async () => {
@@ -29,6 +30,7 @@ describe("Testing return register", () => {
                 "email": "register@mail.com",
                 "password": "senha123"
             })
+            .set("Authorization", `Bearer ${token}`)
         
         if(!response || response.status != 200){
             await sequelize.close()
@@ -70,6 +72,14 @@ describe("Testing return register", () => {
                 "email": "register@mail.com",
                 "telefone": "1140028922"
             })
+        
+        const responseToken = await request(`http://localhost:${process.env.PORT_API}`)
+        .post("/loginUser").send({
+            password: "senha123",
+            email: "register@mail.com",
+        })
+        token = responseToken.body.token
+
         expect(response.status).toBe(409)
         expect(response.body).toStrictEqual({"message": "Email já cadastrado!"})
         
