@@ -6,7 +6,7 @@ export const usuario = sequelize.define("Usuario", {
   id: {
     type: DataTypes.STRING,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
   },
   name: {
     type: DataTypes.STRING,
@@ -20,10 +20,10 @@ export const usuario = sequelize.define("Usuario", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  telefone:{
+  telefone: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
 });
 
 export const produto = sequelize.define(
@@ -59,3 +59,23 @@ export const produto = sequelize.define(
     freezeTableName: true,
   }
 );
+
+export const cart = sequelize.define("Cart", {
+  code: {
+    type: DataTypes.UUIDV4,
+    allowNull: false,
+    primaryKey: true,
+  },
+  nome: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  preco: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false,
+  },
+  imgNome: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
