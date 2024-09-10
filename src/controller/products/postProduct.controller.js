@@ -15,7 +15,7 @@ async function postProduct(req, res) {
         })
 
         if(!user){
-            return res.status(400).json({message: "Email não Cadastrado!"})
+            return res.status(404).json({message: "Email não Cadastrado!"})
         }else{
 
             const newProduct = {
@@ -35,7 +35,7 @@ async function postProduct(req, res) {
                 defaults: newProduct
             })
             if(!created){
-                return res.status(400).json({message: "Produto já cadastrado!"})
+                return res.status(409).json({message: "Produto já cadastrado!"})
             } else{
                 res.status(201).json({
                     message: "Produto cadastrado com sucesso.",
