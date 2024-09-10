@@ -84,6 +84,10 @@ export const cart = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   },
   {
     freezeTableName: true,

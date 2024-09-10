@@ -51,6 +51,13 @@ describe("Testing return postCart", () => {
 
     afterAll(async () => {
         await request(`http://localhost:${process.env.PORT_API}`)
+            .delete("/deleteCart")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                "code": code
+            })
+
+        await request(`http://localhost:${process.env.PORT_API}`)
         .delete("/deleteProducts")
         .set("Authorization", `Bearer ${token}`)
         .send({
@@ -58,12 +65,6 @@ describe("Testing return postCart", () => {
             "email": "postCart@mail.com"
         })
 
-        await request(`http://localhost:${process.env.PORT_API}`)
-            .delete("/deleteCart")
-            .set("Authorization", `Bearer ${token}`)
-            .send({
-                "code": code
-            })
 
         await request(`http://localhost:${process.env.PORT_API}`)
             .delete("/deleteUser")
@@ -85,7 +86,8 @@ describe("Testing return postCart", () => {
         .set("Authorization", `Bearer ${token}`)
         .send({
             "code":"codigoFalso",
-            "quantidade":""
+            "quantidade":"",
+            "email":""
         })
         expect(response.status).toBe(400)
         expect(response.body.message).toBe("Preencha os campos!")
@@ -97,7 +99,8 @@ describe("Testing return postCart", () => {
             .set("Authorization", `Bearer ${token}`)
             .send({
                 "code": "codigoFalso",
-                "quantidade": 1
+                "quantidade": 1,
+                "email": "postCart@mail.com"
             })
         expect(response.status).toBe(404)
         expect(response.body.message).toBe("Produto não encontrado")
@@ -109,7 +112,8 @@ describe("Testing return postCart", () => {
         .set("Authorization", `Bearer ${token}`)
         .send({
             "code": code,
-            "quantidade": 1000
+            "quantidade": 1000,
+            "email": "postCart@mail.com"
         })
         expect(response.status).toBe(400)
         expect(response.body.message).toBe("Quantidade acima do que esta em estoque")
@@ -121,7 +125,8 @@ describe("Testing return postCart", () => {
         .set("Authorization", `Bearer ${token}`)
         .send({
             "code": code,
-            "quantidade": 10
+            "quantidade": 10,
+            "email": "postCart@mail.com"
         })
         expect(response.status).toBe(201)
         expect(response.body.message).toBe("Produto adicionado ao carrinho com sucesso.")
@@ -133,7 +138,8 @@ describe("Testing return postCart", () => {
         .set("Authorization", `Bearer ${token}`)
         .send({
             "code": code,
-            "quantidade": 10
+            "quantidade": 10,
+            "email": "postCart@mail.com"
         })
         expect(response.status).toBe(400)
         expect(response.body.message).toBe("Produto já adicionado ao carrinho!")
