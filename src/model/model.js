@@ -60,22 +60,32 @@ export const produto = sequelize.define(
   }
 );
 
-export const cart = sequelize.define("Cart", {
-  code: {
-    type: DataTypes.UUIDV4,
-    allowNull: false,
-    primaryKey: true,
+export const cart = sequelize.define(
+  "Cart",
+  {
+    code: {
+      type: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true,
+    },
+    nome: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    preco: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    imgNome: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    quantidade: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
-  nome: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  preco: {
-    type: DataTypes.DECIMAL(10, 2),
-    allowNull: false,
-  },
-  imgNome: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
+  {
+    freezeTableName: true,
+  }
+);
