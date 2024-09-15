@@ -8,7 +8,8 @@ async function deleteUser(req,res) {
         //verificando se todos os campos estão preenchidos
         if(!user.email || !user.password){
             res.status(400).json({
-                message: "Preencha todos os campos."
+                message: "Preencha todos os campos.",
+                status: 400
             })
         } else{
             // buscando o usuario
@@ -20,7 +21,8 @@ async function deleteUser(req,res) {
             
             if(!userDB){
                 res.status(404).json({
-                    message: "Usuário não encontrado."
+                    message: "Usuário não encontrado.",
+                    status: 404
                 })
             } else{
                 //verificando se senha fornecida é a mesma que esta no banco
@@ -36,11 +38,13 @@ async function deleteUser(req,res) {
                     })
 
                     res.status(200).json({
-                        message: "Usuário deletado com sucesso."
+                        message: "Usuário deletado com sucesso.",
+                        status: 200
                     })
                 } else{
                     res.status(401).json({
-                        message: "Senha incorreta."
+                        message: "Senha incorreta.",
+                        status: 401
                     })
                 }
             }
@@ -48,7 +52,8 @@ async function deleteUser(req,res) {
     } catch(error){
         res.status(500).json({
             message: "Erro ao deletar usuario",
-            erro: error.message
+            erro: error.message,
+            status: 500
         })
     }
 }

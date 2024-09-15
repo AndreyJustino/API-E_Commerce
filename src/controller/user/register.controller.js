@@ -7,7 +7,7 @@ async function register(req, res) {
         const newUser = req.body;
 
         if(!newUser.name || !newUser.password || !newUser.email || !newUser.telefone ){
-            res.status(400).json({message: "Preencha todos os campos!"});
+            res.status(400).json({message: "Preencha todos os campos!", status: 400});
         } else{
             
             const hash = await bcrypt.hash(newUser.password, 10)
@@ -26,11 +26,12 @@ async function register(req, res) {
             })
     
             if(!created){
-                res.status(409).json({message: "Email já cadastrado!"});
+                res.status(409).json({message: "Email já cadastrado!", status: 409});
             } else{
                 res.status(201).json({
                     message: "Usuario cadastrado com sucesso.",
-                    user: user
+                    user: user,
+                    status: 201
                 })
             }
         }
@@ -38,7 +39,8 @@ async function register(req, res) {
     }catch(error){
         res.status(500).json({
             message: "Erro ao cadastrar usuario",
-            error: error.message
+            error: error.message,
+            status: 500
         })
     }
 }

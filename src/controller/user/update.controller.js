@@ -7,7 +7,8 @@ async function update(req, res){
 
         if(!user.name || !user.newPassword || !user.password || !user.email || !user.telefone){
             res.status(400).json({
-                message: "Preencha todos os campos."
+                message: "Preencha todos os campos.",
+                status: 400
             })
         }else{
             const findUser = await usuario.findOne({ 
@@ -17,13 +18,13 @@ async function update(req, res){
             })
 
             if(!findUser){
-                res.status(404).json({message: "Usuario não encontrado."})
+                res.status(404).json({message: "Usuario não encontrado.", status: 404})
             } else{
 
                 const validarPassword = await compare(user.password, findUser.password)
 
                 if(!validarPassword){
-                    res.status(401).json({message: "Senha incorreta."})
+                    res.status(401).json({message: "Senha incorreta.", status: 401})
                 } else{
                     
                     await usuario.update(
@@ -48,7 +49,8 @@ async function update(req, res){
         
                     res.status(200).json({
                         message: "Operação bem sucedida.",
-                        user: userUpdate
+                        user: userUpdate,
+                        status: 200
                     })
                 }
 
@@ -59,7 +61,8 @@ async function update(req, res){
     } catch(error){
         res.status(500).json({
             message: "Algum erro aconteceu",
-            erro: error
+            erro: error.message,
+            status: 500
         })
     }
 }

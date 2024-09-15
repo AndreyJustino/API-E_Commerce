@@ -15,7 +15,8 @@ async function loginUser(req,res) {
 
         if(!user){
             return res.status(404).json({
-                message: "Usuario não encontrado."
+                message: "Usuario não encontrado.",
+                status: 404
             })
         }
 
@@ -23,7 +24,8 @@ async function loginUser(req,res) {
 
         if(!validarPassword){
             return res.status(401).json({
-                message: "Senha inválida."
+                message: "Senha inválida.",
+                status: 401
             })
         }
 
@@ -35,13 +37,15 @@ async function loginUser(req,res) {
 
         res.status(200).json({
             message: "Login autorizado.",
-            token: token
+            token: token,
+            status: 200
         })
 
     } catch(error){
         res.status(500).json({
             message: "Erro ao iniciar sessão",
-            error: error.message
+            error: error.message,
+            status: 500
         })
     }
 }
