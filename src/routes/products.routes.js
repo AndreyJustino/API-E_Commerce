@@ -10,8 +10,8 @@ const routesProducts = Router();
 
 routesProducts.delete("/deleteProducts", verificaToken, deleteProduct)
 routesProducts.post("/postProduct", verificaToken, postProduct)
-routesProducts.get("/getProducts/:nome", verificaToken, getProduct);
+routesProducts.get("/getProducts/:nome", getProduct);
 routesProducts.put("/putProduct", verificaToken, putProduct)
-routesProducts.get("/getAllProducts", verificaToken, allProducts)
+routesProducts.get("/getAllProducts", allProducts)
 
 export default routesProducts;
