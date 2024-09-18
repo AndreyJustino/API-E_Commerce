@@ -48,7 +48,10 @@ describe("Testing return register", () => {
                 "telefone": "1140028922"
             })
         expect(response.status).toBe(400)
-        expect(response.body).toStrictEqual({"message": "Preencha todos os campos!"})
+        expect(response.body).toStrictEqual({
+            "message": "Preencha todos os campos!",
+            "status": 400
+        })
     })
 
     test("Should return 201 if user register", async () => {
@@ -81,7 +84,10 @@ describe("Testing return register", () => {
         token = responseToken.body.token
 
         expect(response.status).toBe(409)
-        expect(response.body).toStrictEqual({"message": "Email já cadastrado!"})
+        expect(response.body).toStrictEqual({
+            "message": "Email já cadastrado!",
+            "status": 409
+        })
         
     })
 

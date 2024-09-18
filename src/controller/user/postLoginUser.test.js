@@ -62,7 +62,10 @@ describe("Testing return postLoginUser.test", () => {
                 email: "falso@mail.com",
             })
         expect(response.status).toBe(404)
-        expect(response.body).toStrictEqual({"message": "Usuario não encontrado."})
+        expect(response.body).toStrictEqual({
+            "message": "Usuario não encontrado.",
+            "status": 404
+        })
     })
 
     test("Should returning 401 and message", async () => {
@@ -72,7 +75,10 @@ describe("Testing return postLoginUser.test", () => {
                 email: "admin@mail.com",
             })
             expect(response.status).toBe(401)
-            expect(response.body).toStrictEqual({"message": "Senha inválida."})
+            expect(response.body).toStrictEqual({
+                "message": "Senha inválida.",
+                "status": 401
+            })
     })
 
     test("Should returning 200 and message", async () => {

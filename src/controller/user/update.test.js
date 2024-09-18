@@ -83,7 +83,10 @@ describe("Testing return update", () => {
             })
             .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(400)
-        expect(response.body).toStrictEqual({"message": "Preencha todos os campos."})
+        expect(response.body).toStrictEqual({
+            "message": "Preencha todos os campos.",
+            "status": 400
+        })
     })
 
     test("Should return status 404 if user don't found", async () => {
@@ -98,7 +101,10 @@ describe("Testing return update", () => {
             })
             .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(404)
-        expect(response.body).toStrictEqual({"message": "Usuario não encontrado."})
+        expect(response.body).toStrictEqual({
+            "message": "Usuario não encontrado.",
+            "status": 404
+        })
     })
 
     test("Shoudl return status 401 and message if password incorrect", async () => {
@@ -114,7 +120,10 @@ describe("Testing return update", () => {
         .set("Authorization", `Bearer ${token}`)
 
         expect(response.status).toBe(401)
-        expect(response.body).toStrictEqual({"message": "Senha incorreta."})
+        expect(response.body).toStrictEqual({
+            "message": "Senha incorreta.",
+            "status": 401
+        })
     })
 
     test("Should return status 200 if sucess", async () => {

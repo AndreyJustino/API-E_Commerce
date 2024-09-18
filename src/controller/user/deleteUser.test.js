@@ -93,7 +93,10 @@ describe("Testing response deleteUser", () => {
             })
             .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(400)
-        expect(response.body).toStrictEqual({"message": "Preencha todos os campos."})
+        expect(response.body).toStrictEqual({
+            "message": "Preencha todos os campos.",
+            "status": 400
+        })
     })
 
     test("Should return status 404 if user don't found", async () => {
@@ -105,7 +108,10 @@ describe("Testing response deleteUser", () => {
             })
             .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(404)
-        expect(response.body).toStrictEqual({"message": "Usuário não encontrado."})
+        expect(response.body).toStrictEqual({
+            "message": "Usuário não encontrado.",
+            "status": 404
+        })
     })
 
     test("Should return status 401 if password is incorrect", async () => {
@@ -119,7 +125,10 @@ describe("Testing response deleteUser", () => {
             })
             .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(401)
-        expect(response.body).toStrictEqual({"message": "Senha incorreta."})
+        expect(response.body).toStrictEqual({
+            "message": "Senha incorreta.",
+            "status": 401
+        })
     })
 
     test("Should return status 200 if user delete", async () => {
@@ -131,6 +140,9 @@ describe("Testing response deleteUser", () => {
             })
             .set("Authorization", `Bearer ${token}`)
             expect(response.status).toBe(200)
-            expect(response.body).toStrictEqual({"message": "Usuário deletado com sucesso."})
+            expect(response.body).toStrictEqual({
+                "message": "Usuário deletado com sucesso.",
+                "status": 200
+            })
     })
 })

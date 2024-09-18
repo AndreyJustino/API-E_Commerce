@@ -99,7 +99,8 @@ describe("Testing response getUser", () => {
             .set("Authorization", `Bearer ${token}`)
         expect(response.status).toBe(404)
         expect(response.body).toStrictEqual({
-            "message": "Usuario não encontrado"
+            "message": "Usuario não encontrado",
+            "status": 404
         })
     })
 
