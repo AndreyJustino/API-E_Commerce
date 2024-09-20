@@ -87,7 +87,8 @@ describe("Testing return postCart", () => {
         .send({
             "code":"codigoFalso",
             "quantidade":"",
-            "email":""
+            "emailVendedor": "",
+            "emailComprador": ""
         })
         expect(response.status).toBe(400)
         expect(response.body.message).toBe("Preencha os campos!")
@@ -100,7 +101,8 @@ describe("Testing return postCart", () => {
             .send({
                 "code": "codigoFalso",
                 "quantidade": 1,
-                "email": "postCart@mail.com"
+                "emailVendedor": "postCart@mail.com",
+                "emailComprador": "postCart@mail.com"
             })
         expect(response.status).toBe(404)
         expect(response.body.message).toBe("Produto não encontrado")
@@ -113,7 +115,8 @@ describe("Testing return postCart", () => {
         .send({
             "code": code,
             "quantidade": 1000,
-            "email": "postCart@mail.com"
+            "emailVendedor": "postCart@mail.com",
+            "emailComprador": "postCart@mail.com"
         })
         expect(response.status).toBe(400)
         expect(response.body.message).toBe("Quantidade acima do que esta em estoque")
@@ -126,7 +129,8 @@ describe("Testing return postCart", () => {
         .send({
             "code": code,
             "quantidade": 10,
-            "email": "postCart@mail.com"
+            "emailVendedor": "postCart@mail.com",
+            "emailComprador": "postCart@mail.com"
         })
         expect(response.status).toBe(201)
         expect(response.body.message).toBe("Produto adicionado ao carrinho com sucesso.")
@@ -139,7 +143,9 @@ describe("Testing return postCart", () => {
         .send({
             "code": code,
             "quantidade": 10,
-            "email": "postCart@mail.com"
+            "email": "postCart@mail.com",
+            "emailVendedor": "postCart@mail.com",
+            "emailComprador": "postCart@mail.com"
         })
         expect(response.status).toBe(400)
         expect(response.body.message).toBe("Produto já adicionado ao carrinho!")

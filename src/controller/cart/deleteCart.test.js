@@ -4,6 +4,8 @@ import testConnection from "../../middleware/testConnection.js"
 import sequelize from "../../database/config.js"
 import app from "../../app.js"
 
+dotenv.config()
+
 describe("Testing return deleteCart", () => {
     let response, token, code, server;
     let responsepostCART;
@@ -52,7 +54,8 @@ describe("Testing return deleteCart", () => {
                 .send({
                     "code": code,
                     "quantidade": 10,
-                    "email": "deleteCart@mail.com"
+                    "emailVendedor": "deleteCart@mail.com",
+                    "emailComprador": "deleteCart@mail.com"
                 })
             
         })
