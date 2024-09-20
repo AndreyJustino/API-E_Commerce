@@ -2,16 +2,16 @@ import { cart, produto } from "../../model/model.js";
 
 async function postCart(req, res) {
     try{
-        const {code, quantidade, email} = req.body
+        const {code, quantidade, emailVendedor, emailComprador} = req.body
 
-        if(!code, !quantidade, !email){
+        if(!code, !quantidade, !emailVendedor, !emailComprador){
             return res.status(400).json({message: "Preencha os campos!"})
         }
         
         const verificaCode = await produto.findOne({
             where: {
                 code: code,
-                email: email
+                email: emailVendedor
             }
         })
         
@@ -33,13 +33,14 @@ async function postCart(req, res) {
             preco: verificaCode.preco,
             imgNome: verificaCode.imgNome,
             quantidade: quantidade,
-            email: email
+            emailVendedor: emailVendedor,
+            emailComprador: emailComprador
         }
 
         const [cartDB, created] = await cart.findOrCreate({
             where: {
                 code: code,
-                email: email
+                emailComprador: emailComprador
             },
             defaults: newCart
         })
