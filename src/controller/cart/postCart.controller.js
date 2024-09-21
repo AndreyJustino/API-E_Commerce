@@ -2,16 +2,15 @@ import { cart, produto } from "../../model/model.js";
 
 async function postCart(req, res) {
     try{
-        const {code, quantidade, emailVendedor, emailComprador} = req.body
+        const {code, emailComprador} = req.body
 
-        if(!code, !quantidade, !emailVendedor, !emailComprador){
+        if(!code || !emailComprador){
             return res.status(400).json({message: "Preencha os campos!"})
         }
         
         const verificaCode = await produto.findOne({
             where: {
-                code: code,
-                email: emailVendedor
+                code: code
             }
         })
         
@@ -21,26 +20,19 @@ async function postCart(req, res) {
             })
         }
 
-        if(quantidade > verificaCode.quantidade){
-            return res.status(400).json({
-                message: "Quantidade acima do que esta em estoque"
-            })
-        }
-
         const newCart = {
             code: code,
             nome: verificaCode.nome,
             preco: verificaCode.preco,
             imgNome: verificaCode.imgNome,
-            quantidade: quantidade,
-            emailVendedor: emailVendedor,
+            quantidade: verificaCode.quantidade,
+            emailVendedor: verificaCode.email,
             emailComprador: emailComprador
         }
 
         const [cartDB, created] = await cart.findOrCreate({
             where: {
                 code: code,
-                emailComprador: emailComprador
             },
             defaults: newCart
         })

@@ -86,8 +86,6 @@ describe("Testing return postCart", () => {
         .set("Authorization", `Bearer ${token}`)
         .send({
             "code":"codigoFalso",
-            "quantidade":"",
-            "emailVendedor": "",
             "emailComprador": ""
         })
         expect(response.status).toBe(400)
@@ -100,26 +98,10 @@ describe("Testing return postCart", () => {
             .set("Authorization", `Bearer ${token}`)
             .send({
                 "code": "codigoFalso",
-                "quantidade": 1,
-                "emailVendedor": "postCart@mail.com",
                 "emailComprador": "postCart@mail.com"
             })
         expect(response.status).toBe(404)
         expect(response.body.message).toBe("Produto não encontrado")
-    })
-
-    test("Should returning 400 if larger quantity than is in stock", async () => {
-        const response = await request(`http://localhost:${process.env.PORT_API}`)
-        .post("/postCart")
-        .set("Authorization", `Bearer ${token}`)
-        .send({
-            "code": code,
-            "quantidade": 1000,
-            "emailVendedor": "postCart@mail.com",
-            "emailComprador": "postCart@mail.com"
-        })
-        expect(response.status).toBe(400)
-        expect(response.body.message).toBe("Quantidade acima do que esta em estoque")
     })
 
     test("Should returning 201 if product go to cart", async () => {
@@ -128,8 +110,6 @@ describe("Testing return postCart", () => {
         .set("Authorization", `Bearer ${token}`)
         .send({
             "code": code,
-            "quantidade": 10,
-            "emailVendedor": "postCart@mail.com",
             "emailComprador": "postCart@mail.com"
         })
         expect(response.status).toBe(201)
@@ -142,9 +122,6 @@ describe("Testing return postCart", () => {
         .set("Authorization", `Bearer ${token}`)
         .send({
             "code": code,
-            "quantidade": 10,
-            "email": "postCart@mail.com",
-            "emailVendedor": "postCart@mail.com",
             "emailComprador": "postCart@mail.com"
         })
         expect(response.status).toBe(400)
