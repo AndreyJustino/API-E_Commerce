@@ -84,16 +84,16 @@ Antes de começar, certifique-se de ter instalado em sua máquina:
    ```
 
 ## 📂 Estrutura de Pastas
+A estrutura de pastas do projeto é organizada da seguinte maneira:
 
 ```bash
-A estrutura de pastas do projeto é organizada da seguinte maneira:
 
 src/
  ├── controllers/        # Lógica de manipulação de dados para cada rota
  ├── models/             # Definições dos modelos do banco de dados (Sequelize)
  ├── routes/             # Definição das rotas da API
  ├── middlewares/        # Funções intermediárias (e.g., verificação de token)
- ├── config/             # Configuração do banco de dados e Sequelize
+ ├── database/           # Configuração do banco de dados e Sequelize
  └── app.js              # Arquivo principal da aplicação
 ```
 
